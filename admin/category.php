@@ -30,8 +30,8 @@ $query = mysqli_query($con,$select);
                             <td class='id'><?php echo $fetch['category_id'];?></td>
                             <td><?php echo $fetch['category_name'];?></td>
                             <td><?php echo $fetch['post'];?></td>
-                            <td class='edit'><a href='update-category.php'><i class='fa fa-edit'></i></a></td>
-                            <td class='delete'><a href='delete-category.php'><i class='fa fa-trash-o'></i></a></td>
+                            <td class='edit'><a href='update-category.php?id=<?php echo $fetch['category_id'];?>'><i class='fa fa-edit'></i></a></td>
+                            <td class='delete'><a href='delete-category.php?id=<?php echo $fetch['category_id'];?>'><i class='fa fa-trash-o'></i></a></td>
                         </tr>
                         <?php
                             }
