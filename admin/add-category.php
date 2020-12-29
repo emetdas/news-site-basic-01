@@ -1,4 +1,16 @@
-<?php include "header.php"; ?>
+<?php include "header.php";
+include "config.php";
+if (isset($_POST['save'])) {
+    $name = mysqli_real_escape_string($con, $_POST['cat']);
+    $insert ="INSERT INTO category (category_name) VALUES ('{$name}')";
+    if (mysqli_query($con,$insert)) {
+      header("location:category.php");
+    }
+    else{
+        echo "Data not insert";
+    }
+}
+?>
   <div id="admin-content">
       <div class="container">
           <div class="row">
@@ -7,7 +19,7 @@
               </div>
               <div class="col-md-offset-3 col-md-6">
                   <!-- Form Start -->
-                  <form action="" method="POST" autocomplete="off">
+                  <form action="<?php $_SERVER['PHP_SELF']?>" method="POST" autocomplete="off">
                       <div class="form-group">
                           <label>Category Name</label>
                           <input type="text" name="cat" class="form-control" placeholder="Category Name" required>
