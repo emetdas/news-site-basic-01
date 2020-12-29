@@ -6,6 +6,7 @@ if (isset($_GET['page'])) {
 }
 else{
     $page = 1;
+    
 }
 $offset = ($page - 1) * $limit;
 $select  = "SELECT * FROM user ORDER BY user_id DESC LIMIT {$offset},{$limit}";
