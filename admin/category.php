@@ -1,13 +1,13 @@
 <?php include "header.php"; 
 include "config.php";
-$limit = 3;
-$offset = ($page - 1) * $limit;
 if (isset($_GET['category'])) {
     $page = $_GET['category'];
 }
 else{
     $page = 1;
 }
+$limit = 3;
+$offset = ($page - 1) * $limit;
 $select ="SELECT * FROM category LIMIT {$offset},{$limit}";
 $query = mysqli_query($con,$select);
 ?>
@@ -55,17 +55,24 @@ $query = mysqli_query($con,$select);
                     $total_recourds = mysqli_num_rows($query1);
                     $total_pages = ceil($total_recourds / $limit);
                     echo "<ul class='pagination admin-pagination'>";
-                    for ($i=1; $i < $total_pages; $i++) { 
-                      echo "<li><a href='category.php?category={$i}'>{$i}</a></li>";
+                    if ($page > 1) {
+                        echo '<li><a href="category.php?category='.($page -1).'">Prev</a></li>';
                     }
+                    for ($i=1; $i < $total_pages; $i++) { 
+                        if ($i == $page) {
+                            $active = "active";
+                        }
+                        else{
+                            $active = "";
+                        }
+                      echo "<li class='{$active}'><a href='category.php?category={$i}'>{$i}</a></li>";
+                    }
+                    if ($total_pages > $page) {
+                        echo '<li><a href="category.php?category='.($page + 1).'">Next</a></li>';
+                    }
+                    
                     echo "</ul>";
-                }
-                ?>
-                
-                    <li class="active"><a>1</a></li>
-                    <li><a>2</a></li>
-                    <li><a>3</a></li>
-                
+                }?>
             </div>
         </div>
     </div>
