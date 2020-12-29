@@ -1,6 +1,14 @@
 <?php include "header.php"; 
 include "config.php";
-$select ="SELECT * FROM category";
+$limit = 3;
+$offset = ($page - 1) * $limit;
+if (isset($_GET['category'])) {
+    $page = $_GET['category'];
+}
+else{
+    $page = 1;
+}
+$select ="SELECT * FROM category LIMIT {$offset},{$limit}";
 $query = mysqli_query($con,$select);
 ?>
 <div id="admin-content">
@@ -39,11 +47,25 @@ $query = mysqli_query($con,$select);
                         ?>
                     </tbody>
                 </table>
-                <ul class='pagination admin-pagination'>
+                <?php
+                // Pagination-code
+                $select1 = "SELECT * FROM category";
+                $query1 = mysqli_query($con,$select1);
+                if (mysqli_num_rows($query1) > 0) {
+                    $total_recourds = mysqli_num_rows($query1);
+                    $total_pages = ceil($total_recourds / $limit);
+                    echo "<ul class='pagination admin-pagination'>";
+                    for ($i=1; $i < $total_pages; $i++) { 
+                      echo "<li><a href='category.php?category={$i}'>{$i}</a></li>";
+                    }
+                    echo "</ul>";
+                }
+                ?>
+                
                     <li class="active"><a>1</a></li>
                     <li><a>2</a></li>
                     <li><a>3</a></li>
-                </ul>
+                
             </div>
         </div>
     </div>
