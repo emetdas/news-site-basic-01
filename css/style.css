@@ -326,7 +326,7 @@ form{
     padding-bottom: 0;
 }
 .form-group textarea{
-    resize: none !important;
+    resize: none;
 }
 #main-content .single-post h3{
     color: #1e90ff;
