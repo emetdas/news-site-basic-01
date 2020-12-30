@@ -1,5 +1,8 @@
 <?php include "header.php"; 
 include "config.php";
+if ($_SESSION["user_role"] == '0') {
+    header("location:post.php");
+}
 if (isset($_GET['category'])) {
     $page = $_GET['category'];
 }

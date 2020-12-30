@@ -1,3 +1,10 @@
+<?php
+include "config.php";
+session_start();
+if (isset($_SESSION["username"])) {
+    header("location:post.php");
+}
+?>
 <!doctype html>
 <html>
 
@@ -33,12 +40,23 @@
                     <!-- /Form  End -->
                     <?php
                     include "config.php";
-                    session_start();
                     if (isset($_POST['login'])) {
                        $username = mysqli_real_escape_string($con,$_POST['username']); 
                        $password = md5($_POST['password']);
-                       $select = "SELECT user_id,username,role FROM user WHERE username ={$password} AND password = {$username}";
-                       $query = mysqli_query($con,$select);
+                       $select = "SELECT user_id,username,role FROM user WHERE username = '{$username}' AND password = '{$password}'";
+                       $query = mysqli_query($con,$select) or die("query faild");
+                       if (mysqli_num_rows($query)>0) {
+                           while ($row = mysqli_fetch_assoc($query)) {
+                            session_start();
+                            $_SESSION["username"] = $row['username'];
+                            $_SESSION["user_id"] = $row['user_id'];
+                            $_SESSION["user_role"] = $row['role'];
+                            header("location:post.php");
+                           }
+                       }
+                       else{
+                           echo '<div class="alert alert-danger">UserName and Password not Matched</div>';
+                       }
                     }
                     ?>
                 </div>

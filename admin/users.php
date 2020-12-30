@@ -1,5 +1,8 @@
 <?php include "header.php";
 include "config.php";
+if ($_SESSION["user_role"] == '0') {
+    header("location:post.php");
+}
 $limit = 3;
 if (isset($_GET['page'])) {
     $page = $_GET['page'];

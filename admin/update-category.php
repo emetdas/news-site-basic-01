@@ -1,6 +1,9 @@
 <?php 
 include "header.php"; 
 include "config.php";
+if ($_SESSION["user_role"] == '0') {
+    header("location:post.php");
+}
 $get_id = mysqli_real_escape_string($con,$_GET['id']);
 $select = "SELECT * FROM category WHERE category_id = {$get_id}";
 $query = mysqli_query($con,$select) or die("Data not selected");

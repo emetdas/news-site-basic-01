@@ -1,6 +1,9 @@
 <?php 
 include "header.php";
 include "config.php";
+if ($_SESSION["user_role"] == '0') {
+    header("location:post.php");
+}
 if (isset($_POST['save'])) {
     $first_name = mysqli_real_escape_string($con,$_POST['fname']);
     $last_name = mysqli_real_escape_string($con,$_POST['lname']);
