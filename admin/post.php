@@ -1,8 +1,6 @@
 <?php 
 include "header.php"; 
 include "config.php";
-
-
 ?>
   <div id="admin-content">
       <div class="container">
