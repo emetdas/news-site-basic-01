@@ -28,8 +28,10 @@ if (isset($_POST['fileToUpload'])) {
     $date = date("d M,Y");
     $author = $_SESSION["user_id"];
     $sql = "INSERT INTO post(title, description, category, post_date, author, post_img) VALUES('{$title}','{$descpection}','{$category}','{$date}','{$author}','{$file_name}')";
-    $sql .="UPDATE SET ";
-    $query = mysqli_query($con,$sql);
+    $sql .="UPDATE category SET post = post + 1 WHERE category_id = {$category}";
+    if (mysqli_multi_query($con,$sql)) {
+        
+    }
    if (mysqli_num_rows($query) > 0 ) {
        echo "<p style='color:red;text-align:center;margin:0;padding:2rem 0;'>UserName already exists</p>";
    }
