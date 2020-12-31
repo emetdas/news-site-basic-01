@@ -6,7 +6,7 @@ if (isset($_POST['fileToUpload'])) {
     $file_size = $_FILES['fileToUpload']['size']; 
     $temp_name = $_FILES['fileToUpload']['tmp_name']; 
     $file_type = $_FILES['fileToUpload']['type']; 
-    $file_ext = strtolower(end(explode('.',$file_name))); 
+    $file_ext = end(explode('.',$file_name)); 
     $exctions = array("jpeg","jpg","svg","png");
     if (in_array($file_ext,$exctions) === false) {
         $errors[] = "This exctions file is not alowed, Please Chose jpeg,jpg,svg,png exctions";
