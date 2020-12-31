@@ -18,28 +18,20 @@ if (isset($_POST['fileToUpload'])) {
         move_uploaded_file($temp_name,"upload/".$file_name);
     }
     else{
-        print_r($errors);
         die();
     }
 }
+session_start();
     $title = mysqli_real_escape_string($con,$_POST['post_title']);
     $descpection = mysqli_real_escape_string($con,$_POST['postdesc']);
     $category = mysqli_real_escape_string($con,$_POST['category']);
     $date = date("d M,Y");
     $author = $_SESSION["user_id"];
-    $sql = "INSERT INTO post(title, description, category, post_date, author, post_img) VALUES('{$title}','{$descpection}','{$category}','{$date}','{$author}','{$file_name}')";
+    $sql = "INSERT INTO post(title, description, category, post_date, author, post_img) VALUES('{$title}','{$descpection}','{$category}','{$date}','{$author}','{$file_name}');";
     $sql .="UPDATE category SET post = post + 1 WHERE category_id = {$category}";
     if (mysqli_multi_query($con,$sql)) {
-        
+        header("location:post.php");
     }
-   if (mysqli_num_rows($query) > 0 ) {
-       echo "<p style='color:red;text-align:center;margin:0;padding:2rem 0;'>UserName already exists</p>";
-   }
-   else{
-       $insert ="INSERT INTO user (first_name,last_name,username,password,role) VALUES('{$first_name}','{$last_name}','{$user_name}','{$user_password}','{$role}')";
-       if (mysqli_query($con,$insert)) {
-          header("location:users.php");
-       }
-   }
-
-?>
+    else{
+        echo "<div class='alert alert-danger'>Query Faild</div>";
+    }?>
