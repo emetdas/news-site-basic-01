@@ -4,6 +4,7 @@ if (isset($_POST['fileToUpload'])) {
     $title = mysqli_real_escape_string($con,$_POST['post_title']);
     $descpection = mysqli_real_escape_string($con,$_POST['postdesc']);
     $category = mysqli_real_escape_string($con,$_POST['category']);
+    $date = date("d M,Y");
     $fileToUpload = mysqli_real_escape_string($con,($_POST['fileToUpload']));
     $sql = "SELECT * FROM";
     $query = mysqli_query($con,$sql);
