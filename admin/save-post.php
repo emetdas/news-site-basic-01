@@ -14,7 +14,13 @@ if (isset($_POST['fileToUpload'])) {
     if ($file_size > 2097152) {
         $errors[] = "File size must be lesten 2MB or lower";
     }
-    
+    if (empty ($errors) == true) {
+        move_uploaded_file($temp_name,"upload/".$file_name);
+    }
+    else{
+        print_r($errors);
+        die();
+    }
 }
     $title = mysqli_real_escape_string($con,$_POST['post_title']);
     $descpection = mysqli_real_escape_string($con,$_POST['postdesc']);
