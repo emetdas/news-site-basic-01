@@ -1,6 +1,6 @@
 <?php
 include "config.php";
-if (isset($_POST['fileToUpload'])) {
+if (isset($_FILES['fileToUpload'])) {
     $errors = array();
     $file_name = $_FILES['fileToUpload']['name']; 
     $file_size = $_FILES['fileToUpload']['size']; 
