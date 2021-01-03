@@ -18,7 +18,7 @@ elseif($_SESSION["user_role"] == '0'){
     WHERE post.author = {$_SESSION['user_id']} 
     ORDER BY post.post_id DESC LIMIT {$offset},{$limit}";
 }
-$result = mysqli_query($con, $select) or die("not select");
+$result = mysqli_query($con, $select) or die("no data found");
 ?>
   <div id="admin-content">
       <div class="container">
