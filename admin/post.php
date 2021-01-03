@@ -10,7 +10,14 @@ else{
     
 }
 $offset = ($page - 1) * $limit;
-$select  = "SELECT post.post_id,post.title,post.description,post.category,post.post_date,post.author,category.category_name,user.username FROM post LEFT JOIN category ON post.category = category.category_id LEFT JOIN user ON post.author = user.user_id ORDER BY post.post_id DESC LIMIT {$offset},{$limit}";
+if ($_SESSION["user_role"] == '1') {
+    $select  = "SELECT post.post_id,post.title,post.description,post.category,post.post_date,post.author,category.category_name,user.username FROM post LEFT JOIN category ON post.category = category.category_id LEFT JOIN user ON post.author = user.user_id ORDER BY post.post_id DESC LIMIT {$offset},{$limit}";
+}
+elseif($_SESSION["user_role"] == '0'){
+    $select  = "SELECT post.post_id,post.title,post.description,post.category,post.post_date,post.author,category.category_name,user.username FROM post LEFT JOIN category ON post.category = category.category_id LEFT JOIN user ON post.author = user.user_id 
+    WHERE post.author = {$_SESSION['user_id']} 
+    ORDER BY post.post_id DESC LIMIT {$offset},{$limit}";
+}
 $result = mysqli_query($con, $select) or die("not select");
 ?>
   <div id="admin-content">
