@@ -2,7 +2,7 @@
 include "header.php"; 
 include "config.php";
 $get_id = $_GET['id'];
-$select  = "SELECT post.post_id,post.title,post.description,post.post_img,category.category_name FROM post LEFT JOIN category ON post.category = category.category_id LEFT JOIN user ON post.author = user.user_id WHERE post.post_id = {$get_id}";
+$select  = "SELECT post.post_id,post.title,post.description,post.post_img,post.category,category.category_name FROM post LEFT JOIN category ON post.category = category.category_id LEFT JOIN user ON post.author = user.user_id WHERE post.post_id = {$get_id}";
 $result = mysqli_query($con,$select) or die("query faild");
 ?>
 <div id="admin-content">
@@ -17,7 +17,7 @@ $result = mysqli_query($con,$select) or die("query faild");
         while ($row = mysqli_fetch_assoc($result)) {
     ?>
         <!-- Form for show edit-->
-        <form action="" method="POST" enctype="multipart/form-data" autocomplete="off">
+        <form action="save-update.php" method="POST" enctype="multipart/form-data" autocomplete="off">
             <div class="form-group">
                 <input type="hidden" name="post_id"  class="form-control" value="<?php
                 echo $row['post_id'];?>" placeholder="">
@@ -37,10 +37,21 @@ $result = mysqli_query($con,$select) or die("query faild");
             <div class="form-group">
                 <label for="exampleInputCategory">Category</label>
                 <select class="form-control" name="category">
-                    <option value="">Html</option>
-                    <option value="">Css</option>
-                    <option value="">javascript</option>
-                    <option value="">Python</option>
+                <?php
+                    $sql = "SELECT * FROM category";
+                    $result1 = mysqli_query($con,$sql) or die("query Faild");
+                    if (mysqli_num_rows($result1) > 0) {
+                        while ($row1 = mysqli_fetch_assoc($result1)) {
+                            if ($row['category'] == $row1['category_id']) {
+                                $selected = "selected";
+                            }
+                            else {
+                                $selected = "";
+                            }
+                            echo "<option {$selected} value='{$row1['category_id']}'>{$row1['category_name']}</option>";
+                        }
+                    }
+                ?>
                 </select>
             </div>
             <div class="form-group">
