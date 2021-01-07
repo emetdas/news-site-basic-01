@@ -59,7 +59,8 @@ $result = mysqli_query($con,$select) or die("query faild");
                 <input type="file" name="new-image">
                 <img  src="upload/<?php
                 echo $row['post_img'];?>" height="150px">
-                <input type="hidden" name="old-image" value="">
+                <input type="hidden" name="old-image" value="<?php
+                echo $row['post_img'];?>">
             </div>
             <input type="submit" name="submit" class="btn btn-primary" value="Update" />
         </form>
