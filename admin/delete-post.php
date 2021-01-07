@@ -8,6 +8,6 @@ if(mysqli_multi_query($con,$delet)){
     header("location:post.php");
 }
 else{
-echo "data not delete";
+echo "psot not delete";
 }
 ?>
