@@ -5,10 +5,10 @@ if (empty($_FILES['new-image']['name'])) {
 }
 else{
     $errors = array();
-    $file_name = $_FILES['fileToUpload']['name']; 
-    $file_size = $_FILES['fileToUpload']['size']; 
-    $temp_name = $_FILES['fileToUpload']['tmp_name']; 
-    $file_type = $_FILES['fileToUpload']['type']; 
+    $file_name = $_FILES['new-image']['name']; 
+    $file_size = $_FILES['new-image']['size']; 
+    $temp_name = $_FILES['new-image']['tmp_name']; 
+    $file_type = $_FILES['new-image']['type']; 
     $file_ext = end(explode('.',$file_name)); 
     $exctions = array("jpeg","jpg","svg","png");
     if (in_array($file_ext,$exctions) === false) {
@@ -24,5 +24,12 @@ else{
         die();
     }
 }
-$sql = "UPDATE post SET title='{$_POST["post_title"]}',description='{$_POST["postdesc"]}',category='{$_POST["category"]}',post_img='{$file_name}' WHERE post_id={$_POST["post_id"]}";
+$sql = "UPDATE post SET title='{$_POST["post_title"]}',description='{$_POST["postdesc"]}',category={$_POST["category"]},post_img='{$file_name}' WHERE post_id={$_POST["post_id"]}";
+$query = mysqli_query($con,$sql);
+if ($query) {
+    header("location:post.php");
+}
+else{
+    echo "Data not upadate";
+}
 ?>
