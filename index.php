@@ -1,7 +1,17 @@
 <?php 
 include 'header.php'; 
 include 'config.php'; 
-$select = "SELECT * FROM post";
+$limit = 3;
+if (isset($_GET['page'])) {
+    $page = $_GET['page'];
+}
+else{
+    $page = 1;
+    
+}
+$offset = ($page - 1) * $limit;
+$select  = "SELECT post.post_id,post.title,post.description,post.category,post.post_date,post.author,post.post_img,category.category_name,user.username FROM post LEFT JOIN category ON post.category = category.category_id LEFT JOIN user ON post.author = user.user_id ORDER BY post.post_id DESC LIMIT {$offset},{$limit}";
+// $select = "SELECT * FROM post";
 $query = mysqli_query($con,$select);
 ?>
     <div id="main-content">
@@ -17,7 +27,7 @@ $query = mysqli_query($con,$select);
                         <div class="post-content">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <a class="post-img" href="single.php"><img src="images/<?php ?>" alt=""/></a>
+                                    <a class="post-img" href="single.php"><img src="admin/upload/<?php echo $row['post_img']; ?>" alt="<?php echo $row['title'];?>"/></a>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="inner-content clearfix">
@@ -47,12 +57,35 @@ $query = mysqli_query($con,$select);
                         <?php
                                 }
                             }
+                            else{
+                                echo "Post not Found";
+                            }
                             ?>
-                        <ul class='pagination'>
-                            <li class="active"><a href="">1</a></li>
-                            <li><a href="">2</a></li>
-                            <li><a href="">3</a></li>
-                        </ul>
+                          <?php
+                $user_table = "SELECT * FROM post";
+                $query = mysqli_query($con,$user_table) or die("query unsussfully");
+                if (mysqli_num_rows($query) > 0) {
+                    $total_recourds = mysqli_num_rows($query);
+                    $total_pages = ceil($total_recourds / $limit);
+                    echo "<ul class='pagination admin-pagination'>";
+                    if ($page > 1) {
+                        echo '<li><a href="post.php?page='.($page - 1).'">Prev</li>';
+                    }
+                    for ($i = 1; $i <= $total_pages; $i++) {
+                        if ($i == $page) {
+                            $active = "active";
+                        }
+                        else{
+                            $active = ""; 
+                        }
+                        echo "<li class='{$active}'><a href='post.php?page={$i}'>{$i}</a></li>";
+                    }
+                    if ($total_pages > $page) {
+                        echo '<li><a href="post.php?page='.($page + 1).'">Next</a></li>';
+                    }
+                    echo "</ul>";
+                }
+                ?>
                     </div><!-- /post-container -->
                 </div>
                 <?php include 'sidebar.php'; ?>
