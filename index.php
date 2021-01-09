@@ -27,19 +27,19 @@ $query = mysqli_query($con,$select);
                         <div class="post-content">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <a class="post-img" href="single.php"><img src="admin/upload/<?php echo $row['post_img']; ?>" alt="<?php echo $row['title'];?>"/></a>
+                                    <a class="post-img" href="single.php?id=<?php echo $row['post_id'];?>"><img src="admin/upload/<?php echo $row['post_img']; ?>" alt="<?php echo $row['title'];?>"/></a>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="inner-content clearfix">
-                                        <h3><a href='single.php'><?php echo $row['title'];?></a></h3>
+                                        <h3><a href='single.php?id=<?php echo $row['post_id'];?>'><?php echo $row['title'];?></a></h3>
                                         <div class="post-information">
                                             <span>
                                                 <i class="fa fa-tags" aria-hidden="true"></i>
-                                                <a href='category.php'><?php echo $row['category'];?></a>
+                                                <a href='category.php'><?php echo $row['category_name'];?></a>
                                             </span>
                                             <span>
                                                 <i class="fa fa-user" aria-hidden="true"></i>
-                                                <a href='author.php'><?php echo $row['author'];?></a>
+                                                <a href='author.php'><?php echo $row['username'];?></a>
                                             </span>
                                             <span>
                                                 <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -47,9 +47,9 @@ $query = mysqli_query($con,$select);
                                             </span>
                                         </div>
                                         <p class="description">
-                                        <?php echo $row['description'];?>
+                                        <?php echo substr($row['description'],0,130)."...."?>
                                         </p>
-                                        <a class='read-more pull-right' href='single.php'>read more</a>
+                                        <a class='read-more pull-right' href='single.php?id=<?php echo $row['post_id'];?>'>read more</a>
                                     </div>
                                 </div>
                             </div>
@@ -69,7 +69,7 @@ $query = mysqli_query($con,$select);
                     $total_pages = ceil($total_recourds / $limit);
                     echo "<ul class='pagination admin-pagination'>";
                     if ($page > 1) {
-                        echo '<li><a href="post.php?page='.($page - 1).'">Prev</li>';
+                        echo '<li><a href="index.php?page='.($page - 1).'">Prev</li>';
                     }
                     for ($i = 1; $i <= $total_pages; $i++) {
                         if ($i == $page) {
@@ -78,10 +78,10 @@ $query = mysqli_query($con,$select);
                         else{
                             $active = ""; 
                         }
-                        echo "<li class='{$active}'><a href='post.php?page={$i}'>{$i}</a></li>";
+                        echo "<li class='{$active}'><a href='index.php?page={$i}'>{$i}</a></li>";
                     }
                     if ($total_pages > $page) {
-                        echo '<li><a href="post.php?page='.($page + 1).'">Next</a></li>';
+                        echo '<li><a href="index.php?page='.($page + 1).'">Next</a></li>';
                     }
                     echo "</ul>";
                 }

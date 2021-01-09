@@ -1,3 +1,8 @@
+<?php
+include "config.php";
+$sql = "SELECT * FROM category";
+$query = mysqli_query($con,$sql);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,10 +40,15 @@
         <div class="row">
             <div class="col-md-12">
                 <ul class='menu'>
-                    <li><a href='category.php'>Business</a></li>
-                    <li><a href='category.php'>Entertainment</a></li>
-                    <li><a href='category.php'>Sports</a></li>
-                    <li><a href='category.php'>Politics</a></li>
+                <li><a href='index.php'>Home</a></li>
+                <?php
+if (mysqli_num_rows($query) > 0) {
+    while ($row = mysqli_fetch_assoc($query)){ ?>
+                    <li><a href='category.php'><?php echo $row['category_name']; ?></a></li>
+                    <?php
+                    }
+                }
+                ?>
                 </ul>
             </div>
         </div>
