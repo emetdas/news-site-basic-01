@@ -1,6 +1,7 @@
 <?php 
 include 'header.php'; 
 include 'config.php'; 
+$select = "SELECT * FROM psot";
 ?>
     <div id="main-content">
         <div class="container">
