@@ -42,12 +42,13 @@ $query = mysqli_query($con,$sql);
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <ul class='menu'>
-                <?php
+            <?php
                     if (mysqli_num_rows($query) > 0) {
                         $selected = "";
                         ?>
-                       <li><a class='<?php echo $selected; ?>' href='index.php'>Home</a></li>
+                <ul class='menu'>
+                
+                       <li><a href='index.php'>Home</a></li>
                        <?php
                         while ($row = mysqli_fetch_assoc($query)){ 
                             if (isset($_GET['cid'])) {
@@ -61,11 +62,14 @@ $query = mysqli_query($con,$sql);
                     ?>
                     
                     <li><a class='<?php echo $selected; ?>' href='category.php?cid=<?php echo $row['category_id']; ?>'><?php echo $row['category_name']; ?></a></li>
-                    <?php
-                    }
+              <?php
+              }
+              ?>
+                </ul>
+                <?php
+                    
                      }
                 ?>
-                </ul>
             </div>
         </div>
     </div>
