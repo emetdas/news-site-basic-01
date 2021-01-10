@@ -25,7 +25,12 @@ $query = mysqli_query($con,$select);
             <div class="col-md-8">
                 <!-- post-container -->
                 <div class="post-container">
-                  <h2 class="page-heading">Category Name</h2>
+                <?php
+                $user = "SELECT * FROM category WHERE category_id = {$get_cid}";
+                $query1 = mysqli_query($con,$user) or die("query unsussfully");
+                $row1 = mysqli_fetch_assoc($query1);
+                ?>
+                  <h2 class="page-heading"><?php echo $row1['category_name']; ?></h2>
                   <?php
                         if (mysqli_num_rows($query) > 0) {
                             while ($row = mysqli_fetch_assoc($query)) {
@@ -41,7 +46,7 @@ $query = mysqli_query($con,$select);
                                         <div class="post-information">
                                             <span>
                                                 <i class="fa fa-tags" aria-hidden="true"></i>
-                                                <a href='category.php'><?php echo $row['category_name'];?></a>
+                                                <a href='category.php?cid=<?php echo $row['category'];?>'><?php echo $row['category_name'];?></a>
                                             </span>
                                             <span>
                                                 <i class="fa fa-user" aria-hidden="true"></i>
