@@ -1,6 +1,9 @@
 <?php
 include "config.php";
-$sql = "SELECT * FROM category";
+if (isset($_GET['cid'])) {
+    $get_cat = $_GET['cid'];  
+}
+$sql = "SELECT * FROM category  WHERE post > 0";
 $query = mysqli_query($con,$sql);
 ?>
 <!DOCTYPE html>
@@ -40,14 +43,27 @@ $query = mysqli_query($con,$sql);
         <div class="row">
             <div class="col-md-12">
                 <ul class='menu'>
-                <li><a class="active" href='index.php'>Home</a></li>
                 <?php
-if (mysqli_num_rows($query) > 0) {
-    while ($row = mysqli_fetch_assoc($query)){ ?>
-                    <li><a href='category.php'><?php echo $row['category_name']; ?></a></li>
+                    if (mysqli_num_rows($query) > 0) {
+                        $selected = "";
+                        ?>
+                       <li><a class='<?php echo $selected; ?>' href='index.php'>Home</a></li>
+                       <?php
+                        while ($row = mysqli_fetch_assoc($query)){ 
+                            if (isset($_GET['cid'])) {
+                                if ($row['category_id'] == $get_cat) {
+                                    $selected = "active";
+                                 }
+                                 else{
+                                    $selected = "";
+                                }
+                            }
+                    ?>
+                    
+                    <li><a class='<?php echo $selected; ?>' href='category.php?cid=<?php echo $row['category_id']; ?>'><?php echo $row['category_name']; ?></a></li>
                     <?php
                     }
-                }
+                     }
                 ?>
                 </ul>
             </div>

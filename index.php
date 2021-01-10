@@ -35,7 +35,7 @@ $query = mysqli_query($con,$select);
                                         <div class="post-information">
                                             <span>
                                                 <i class="fa fa-tags" aria-hidden="true"></i>
-                                                <a href='category.php'><?php echo $row['category_name'];?></a>
+                                                <a href='category.php?cid=<?php echo $row['category'];?>'><?php echo $row['category_name'];?></a>
                                             </span>
                                             <span>
                                                 <i class="fa fa-user" aria-hidden="true"></i>
