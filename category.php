@@ -50,7 +50,7 @@ $query = mysqli_query($con,$select);
                                             </span>
                                             <span>
                                                 <i class="fa fa-user" aria-hidden="true"></i>
-                                                <a href='author.php'><?php echo $row['username'];?></a>
+                                                <a href='author.php?aid=<?php echo $row['author'];?>'><?php echo $row['username'];?></a>
                                             </span>
                                             <span>
                                                 <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -74,9 +74,9 @@ $query = mysqli_query($con,$select);
                             ?>
                           <?php
                 $user_table = "SELECT post FROM category WHERE category_id = {$get_cid}";
-                $query = mysqli_query($con,$user_table) or die("query unsussfully");
-                $rows = mysqli_fetch_assoc($query);
-                if (mysqli_num_rows($query) > 0) {
+                $query1 = mysqli_query($con,$user_table) or die("query unsussfully");
+                $rows = mysqli_fetch_assoc($query1);
+                if (mysqli_num_rows($query1) > 0) {
                     $total_recourds = $rows['post'];
                     $total_pages = ceil($total_recourds / $limit);
                     echo "<ul class='pagination admin-pagination'>";
