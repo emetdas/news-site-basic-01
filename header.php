@@ -40,7 +40,7 @@ $query = mysqli_query($con,$sql);
         <div class="row">
             <div class="col-md-12">
                 <ul class='menu'>
-                <li><a href='index.php'>Home</a></li>
+                <li><a class="active" href='index.php'>Home</a></li>
                 <?php
 if (mysqli_num_rows($query) > 0) {
     while ($row = mysqli_fetch_assoc($query)){ ?>
