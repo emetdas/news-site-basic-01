@@ -1,7 +1,7 @@
 <?php
 include "config.php";
 // $select = "SELECT * FROM post LIMIT 3";
-$limit = 4;
+$limit = 3;
 $select  = "SELECT post.post_id,post.title,post.description,post.category,post.post_date,post.author,post.post_img,category.category_name,user.username FROM post LEFT JOIN category ON post.category = category.category_id LEFT JOIN user ON post.author = user.user_id ORDER BY post.post_id DESC LIMIT {$limit}";
 $query = mysqli_query($con,$select);
 ?>
