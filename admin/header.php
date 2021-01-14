@@ -62,6 +62,9 @@ if (!isset($_SESSION["username"])) {
                             <?php
                             }
                             ?>
+                             <li>
+                                <a href="settings.php">Sitteng</a>
+                            </li>
                         </ul>
                     </div>
                 </div>

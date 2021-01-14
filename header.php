@@ -23,7 +23,7 @@ switch ($page) {
             $sql_title = "SELECT * FROM category WHERE category_id = {$_GET['cid']}";
             $title_query = mysqli_query($con,$sql_title) or die("Title Faild");
             $title_fatch = mysqli_fetch_assoc($title_query);
-            $title = $title_fatch['category_name'];
+            $title = $title_fatch['category_name']." ". "News";
         }
         else{
             $title = "Post Not Found";
@@ -34,7 +34,7 @@ switch ($page) {
             $sql_title = "SELECT * FROM user WHERE user_id = {$_GET['aid']}";
             $title_query = mysqli_query($con,$sql_title) or die("Title Faild");
             $title_fatch = mysqli_fetch_assoc($title_query);
-            $title = $title_fatch['first_name']." ".$title_fatch['last_name'];
+            $title = "News By " .$title_fatch['first_name']." ".$title_fatch['last_name'];
         }
         else{
             $title = "Post Not Found";
