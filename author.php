@@ -80,7 +80,7 @@ $query = mysqli_query($con,$select);
                     $total_pages = ceil($total_recourds / $limit);
                     echo "<ul class='pagination admin-pagination'>";
                     if ($page > 1) {
-                        echo '<li><a href="index.php?aid='.$get_aid.'&page='.($page - 1).'">Prev</li>';
+                        echo '<li><a href="author.php?aid='.$get_aid.'&page='.($page - 1).'">Prev</li>';
                     }
                     for ($i = 1; $i <= $total_pages; $i++) {
                         if ($i == $page) {
@@ -89,10 +89,10 @@ $query = mysqli_query($con,$select);
                         else{
                             $active = ""; 
                         }
-                        echo "<li class='{$active}'><a href='index.php?aid='.$get_aid.'&page={$i}'>{$i}</a></li>";
+                        echo "<li class='{$active}'><a href='author.php?aid=".$get_aid."&page=".$i."'>".$i."</a></li>";
                     }
                     if ($total_pages > $page) {
-                        echo '<li><a href="index.php?aid='.$get_aid.'&page='.($page + 1).'">Next</a></li>';
+                        echo '<li><a href="author.php?aid='.$get_aid.'&page='.($page + 1).'">Next</a></li>';
                     }
                     echo "</ul>";
                 }
