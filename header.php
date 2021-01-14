@@ -5,6 +5,53 @@ if (isset($_GET['cid'])) {
 }
 $sql = "SELECT * FROM category  WHERE post > 0";
 $query = mysqli_query($con,$sql);
+$page = basename($_SERVER['PHP_SELF']);
+switch ($page) {
+    case 'single.php':
+        if (isset($_GET['id'])) {
+            $sql_title = "SELECT * FROM post WHERE post_id = {$_GET['id']}";
+            $title_query = mysqli_query($con,$sql_title) or die("Title Faild");
+            $title_fatch = mysqli_fetch_assoc($title_query);
+            $title = $title_fatch['title'];
+        }
+        else{
+            $title = "Post Not Found";
+        }
+        break;
+    case 'category.php':
+        if (isset($_GET['cid'])) {
+            $sql_title = "SELECT * FROM category WHERE category_id = {$_GET['cid']}";
+            $title_query = mysqli_query($con,$sql_title) or die("Title Faild");
+            $title_fatch = mysqli_fetch_assoc($title_query);
+            $title = $title_fatch['category_name'];
+        }
+        else{
+            $title = "Post Not Found";
+        }
+        break;
+    case 'author.php':
+        if (isset($_GET['aid'])) {
+            $sql_title = "SELECT * FROM user WHERE user_id = {$_GET['aid']}";
+            $title_query = mysqli_query($con,$sql_title) or die("Title Faild");
+            $title_fatch = mysqli_fetch_assoc($title_query);
+            $title = $title_fatch['first_name']." ".$title_fatch['last_name'];
+        }
+        else{
+            $title = "Post Not Found";
+        }
+        break;
+        case 'search.php':
+            if (isset($_GET['search'])) {
+                $title = $_GET['search'];
+            }
+            else{
+                $title = "Search not Found";
+            }
+            break;
+    default:
+    $title = "Daily New Website";
+        break;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +60,7 @@ $query = mysqli_query($con,$sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>News</title>
+    <title><?php echo $title; ?></title>
     <!-- Bootstrap -->
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <!-- Font Awesome Icon -->
