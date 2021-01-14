@@ -52,6 +52,9 @@ switch ($page) {
     $title = "Daily New Website";
         break;
 }
+$logo_settings = "SELECT * FROM settings";
+$querys = mysqli_query($con,$logo_settings);
+$row_settings = mysqli_fetch_assoc($querys);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -77,7 +80,15 @@ switch ($page) {
         <div class="row">
             <!-- LOGO -->
             <div class=" col-md-offset-4 col-md-4">
-                <a href="index.php" id="logo"><img src="images/news.jpg"></a>
+            <?php 
+            if ($row_settings['logo'] == "") {
+                echo "<a href='index.php' id='logo'><h2>{$row_settings['websitename']}</h2></a>";
+            }
+            else{
+                echo "<a href='index.php' id='logo'><img src='admin/images/{$row_settings['logo']}'></a>";
+            }
+            ?>
+               
             </div>
             <!-- /LOGO -->
         </div>

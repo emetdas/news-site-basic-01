@@ -4,6 +4,9 @@ session_start();
 if (!isset($_SESSION["username"])) {
     header("location:index.php");
 }
+$sql = "SELECT * FROM settings";
+$query = mysqli_query($con,$sql);
+$row = mysqli_fetch_assoc($query);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +32,15 @@ if (!isset($_SESSION["username"])) {
                 <div class="row">
                     <!-- LOGO -->
                     <div class="col-md-2">
-                        <a href="post.php"><img class="logo" src="images/news.jpg"></a>
+                        <!-- <a href="post.php"><img class="logo" src="images/<?php echo $row['logo'];?>"></a> -->
+                        <?php 
+            if ($row['logo'] == "") {
+                echo "<a href='index.php' id='logo'><h2>{$row['websitename']}</h2></a>";
+            }
+            else{
+                echo "<a href='index.php' id='logo'><img src='images/{$row['logo']}'></a>";
+            }
+            ?>
                     </div>
                     <!-- /LOGO -->
                       <!-- LOGO-Out -->
