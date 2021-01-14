@@ -63,7 +63,7 @@ if (!isset($_SESSION["username"])) {
                             }
                             ?>
                              <li>
-                                <a href="settings.php">Sitteng</a>
+                                <a href="settings.php">Sittengs</a>
                             </li>
                         </ul>
                     </div>
